@@ -22,6 +22,8 @@ namespace ConsoleApplication1
         static double computeTotal(string itemsList)
         {
             double total = 0;
+            double discountOrange = 0;
+            double discountApple = 0;
             int orangeCount = 0;
             int appleCount = 0;
             string groceryItem;
@@ -40,8 +42,33 @@ namespace ConsoleApplication1
                 }
             }
 
-            total = (appleCount * 0.60) + (orangeCount * 0.25);     // compute the total
-            return total; 
+            total = (appleCount * 0.60) + (orangeCount * 0.25);             // compute the total
+
+            discountOrange = calalcuateDiscount("Orange", orangeCount);     // compute the discount of oranges
+            discountApple = calalcuateDiscount("Apple", appleCount);        // compute the discount of apples
+
+            return total - discountOrange - discountApple;                  // compute total - discounts
+        }
+
+        static double calalcuateDiscount(string item, double itemCount)
+        {
+            double discount = 0;
+
+            if (item.Equals("Orange"))                                      // calcualte orange discount
+            {
+                if ((itemCount % 3) == 0)
+                {
+                    discount = ((itemCount / 3) * 0.25);
+                }
+            } else                                                          // calculate apple discount
+            {
+                if ((itemCount % 2) == 0)
+                {
+                    discount = ((itemCount / 2) * 0.60);
+                }
+            }
+
+            return discount;
         }
     }
 }
